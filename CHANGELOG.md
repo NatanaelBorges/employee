@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/NatanaelBorges/employee/compare/v1.0.0...v1.0.1) (2022-12-24)
+
+
+### Documentation
+
+* **license:** create the license file ([0ea3394](https://github.com/NatanaelBorges/employee/commit/0ea3394ee9f4d24f8fc02282be1de87a5c3004bd))
+* **readme:** create english and portuguese readme file ([fa0fa18](https://github.com/NatanaelBorges/employee/commit/fa0fa181c2465222f831eba104469dd0446a1054))
+
 ## 1.0.0 (2022-12-23)
 
 
