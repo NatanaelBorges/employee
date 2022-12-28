@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { Logger } from '@nestjs/common';
+import { Logger, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 import { RootModule } from '@infrastructure/modules/root.module';
 import { ApiServerConfig } from '@infrastructure/helpers/config/api.server.config';
 
@@ -15,7 +16,11 @@ export class ServerApplication {
       const app: NestExpressApplication =
         await NestFactory.create<NestExpressApplication>(RootModule);
 
+      app.use(helmet());
+      app.enableCors();
+
       this.log();
+      this.buildAPIVersioning(app);
       this.buildAPIDocumentation(app);
 
       await app.listen(this.port, this.host);
@@ -35,6 +40,14 @@ export class ServerApplication {
       `🚀  Server ready at http://${this.host}:${this.port}`,
       'Bootstrap',
     );
+  }
+
+  private buildAPIVersioning(app: NestExpressApplication): void {
+    app.enableVersioning({
+      type: VersioningType.URI,
+      defaultVersion: '1',
+      prefix: 'api/v',
+    });
   }
 
   private buildAPIDocumentation(app: NestExpressApplication): void {
