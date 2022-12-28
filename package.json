@@ -8,9 +8,11 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "copy:local-env": "cp .env.development ./dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:local": "npm run copy:local-env && cd ./dist && node -r dotenv/config main.js",
+    "start:dev": "NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -23,12 +25,20 @@
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.1.4",
+    "@nestjs/typeorm": "^9.0.1",
+    "helmet": "^6.0.1",
+    "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "release-please": "^15.0.0",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.11",
+    "typeorm-transactional-cls-hooked": "^0.1.21"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
@@ -72,5 +82,10 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "_moduleAliases": {
+    "@infrastructure": "infrastructure",
+    "@controller": "controller",
+    "@application": "application"
   }
 }
