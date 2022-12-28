@@ -1,9 +1,18 @@
-// import { typeOrmAsyncConfig } from '@infrastructure/data/context/employee.context';
-import { Module } from '@nestjs/common';
+import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked';
 import { dataSourceOptions } from '@infrastructure/data/context/employee.context';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions)],
+  imports: [
+    TypeOrmModule.forRootAsync({
+      useClass: dataSourceOptions,
+      inject: [dataSourceOptions],
+    }),
+  ],
 })
-export class EmployeeContextModule {}
+export class EmployeeContextModule implements OnApplicationBootstrap {
+  onApplicationBootstrap(): void {
+    initializeTransactionalContext();
+  }
+}
