@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/NatanaelBorges/employee/compare/v1.1.0...v1.2.0) (2023-01-02)
+
+
+### Features
+
+* create test controller ([4339679](https://github.com/NatanaelBorges/employee/commit/4339679b25e26809c7ac1f4df15fdfceca9f8090))
+
 ## [1.1.0](https://github.com/NatanaelBorges/employee/compare/v1.0.1...v1.1.0) (2022-12-28)
 
 
