@@ -10,6 +10,7 @@ import {
 import { EmployeeService } from '@application/services/employee.service';
 import { CreateEmployeeViewModel } from '@application/view-models/employee/CreateEmployee.view-models';
 import { UpdateEmployeeViewModel } from '@application/view-models/employee/UpdateEmployee.view-models';
+import { Employee } from '@infrastructure/data/mappings/employee.map';
 
 @Controller('employee')
 export class EmployeeController {
@@ -21,8 +22,8 @@ export class EmployeeController {
   }
 
   @Get()
-  findAll() {
-    return this.employeeService.findAll();
+  async findAll() {
+    return await this.employeeService.findAll();
   }
 
   @Get(':id')
