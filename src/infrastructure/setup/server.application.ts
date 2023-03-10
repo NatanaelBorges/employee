@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { Logger, VersioningType } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { RootModule } from '@infrastructure/modules/root.module';
@@ -15,6 +15,8 @@ export class ServerApplication {
     try {
       const app: NestExpressApplication =
         await NestFactory.create<NestExpressApplication>(RootModule);
+
+      app.useGlobalPipes(new ValidationPipe());
 
       app.use(helmet());
       app.enableCors();

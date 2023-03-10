@@ -1,12 +1,13 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Employee } from '@infrastructure/data/mappings/employee.map';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateEmployeeViewModel } from '@application/view-models/employee/CreateEmployee.view-models';
 import { UpdateEmployeeViewModel } from '@application/view-models/employee/UpdateEmployee.view-models';
 
 @Injectable()
 export class EmployeeService {
+  private readonly logger = new Logger(EmployeeService.name);
   constructor(
     @InjectRepository(Employee)
     private employeeRepository: Repository<Employee>,
@@ -21,7 +22,9 @@ export class EmployeeService {
     return this.employeeRepository.find();
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
+    this.logger.log(`Find the employee: ${id}`);
+
     return this.employeeRepository.findOneBy({ id });
   }
 
